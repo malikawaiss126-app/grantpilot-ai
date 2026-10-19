@@ -1,26 +1,276 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   GrantPilot colour system
+   Palette: #2b435d  #2c69cb  #000000  #bfbfbf  #3580e5  #3952bc
+
+   Every page already uses Tailwind's slate / indigo / red / emerald / amber
+   classes. Instead of editing hundreds of class names, those colour scales are
+   re-defined here as CSS variables, and the dark theme simply swaps the values.
+   Light mode: html has no class.   Dark mode: html has class "dark".
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  /* Page + surfaces */
+  --page: #f2f5f9;
+  --surface: #ffffff;
+  --sidebar: #2b435d;
+  --sidebar-line: #3a5473;
+
+  /* Neutral scale (text, borders, backgrounds) */
+  --slate-50: #f2f5f9;
+  --slate-100: #e8edf3;
+  --slate-200: #d3dae3;
+  --slate-300: #bfbfbf;
+  --slate-400: #8593a3;
+  --slate-500: #536174;
+  --slate-600: #43536a;
+  --slate-700: #34465c;
+  --slate-800: #2b435d;
+  --slate-900: #000000;
+  --slate-950: #0a1018;
+
+  /* Brand blue (replaces indigo everywhere) */
+  --indigo-50: #edf4fe;
+  --indigo-100: #dbe8fb;
+  --indigo-200: #b9d2f6;
+  --indigo-300: #8ab5f0;
+  --indigo-400: #5b98ec;
+  --indigo-500: #3580e5;
+  --indigo-600: #2c69cb;
+  --indigo-700: #3952bc;
+  --indigo-800: #2b435d;
+  --indigo-900: #1d2e41;
+
+  /* Status colours, tuned to sit next to the blues */
+  --red-50: #fdf0f0;
+  --red-100: #fbe0e0;
+  --red-200: #f3bcbc;
+  --red-500: #d64545;
+  --red-600: #c03636;
+  --red-700: #a42a2a;
+  --red-800: #862222;
+  --red-900: #6b1d1d;
+
+  --emerald-50: #eef8f3;
+  --emerald-100: #d9f0e5;
+  --emerald-200: #b3e0cb;
+  --emerald-500: #2a9d6b;
+  --emerald-600: #1f8658;
+  --emerald-700: #1a6e49;
+  --emerald-800: #165a3d;
+  --emerald-900: #134a33;
+
+  --amber-50: #fff7e8;
+  --amber-100: #ffeccb;
+  --amber-200: #fcd994;
+  --amber-500: #d98a0b;
+  --amber-600: #b87206;
+  --amber-700: #8f5805;
+  --amber-800: #744805;
+  --amber-900: #5e3b05;
+
+  --orange-50: #fff3ea;
+  --orange-100: #ffe5d1;
+  --orange-200: #fbc9a1;
+  --orange-500: #dc6a1b;
+  --orange-600: #bf5a14;
+  --orange-700: #9c4810;
+  --orange-800: #7e3a0d;
+  --orange-900: #682f0b;
 }
 
+html.dark {
+  color-scheme: dark;
+
+  --page: #0d151f;
+  --surface: #15202d;
+  --sidebar: #000000;
+  --sidebar-line: #1e2b3a;
+
+  /* Neutral scale is flipped: 50 = darkest, 900 = lightest */
+  --slate-50: #0d151f;
+  --slate-100: #1a2736;
+  --slate-200: #2a3b4f;
+  --slate-300: #3d5068;
+  --slate-400: #7d8ea2;
+  --slate-500: #9db0c4;
+  --slate-600: #b5c4d4;
+  --slate-700: #cdd8e3;
+  --slate-800: #e3eaf1;
+  --slate-900: #ffffff;
+  --slate-950: #060b11;
+
+  --indigo-50: #14263f;
+  --indigo-100: #193157;
+  --indigo-200: #234a82;
+  --indigo-300: #2f66b8;
+  --indigo-400: #4a8ef0;
+  --indigo-500: #5b9bf2;
+  --indigo-600: #3580e5;
+  --indigo-700: #4a6ad6;
+  --indigo-800: #b9d2f6;
+  --indigo-900: #dbe8fb;
+
+  --red-50: #2d1517;
+  --red-100: #3d1b1e;
+  --red-200: #6b2a2f;
+  --red-500: #ef6b6b;
+  --red-600: #f08080;
+  --red-700: #f4a0a0;
+  --red-800: #f7b8b8;
+  --red-900: #fad0d0;
+
+  --emerald-50: #10261d;
+  --emerald-100: #153427;
+  --emerald-200: #1f5a43;
+  --emerald-500: #3ec28a;
+  --emerald-600: #2fa874;
+  --emerald-700: #6fd4a6;
+  --emerald-800: #92e0bc;
+  --emerald-900: #b5ebd1;
+
+  --amber-50: #2b2110;
+  --amber-100: #3a2c12;
+  --amber-200: #6b4f17;
+  --amber-500: #f0a933;
+  --amber-600: #e89b1e;
+  --amber-700: #f3bb5e;
+  --amber-800: #f6cb84;
+  --amber-900: #f9dcaa;
+
+  --orange-50: #2c1a0f;
+  --orange-100: #3b2112;
+  --orange-200: #6e3a17;
+  --orange-500: #f08a3c;
+  --orange-600: #ee7b24;
+  --orange-700: #f4a468;
+  --orange-800: #f6b988;
+  --orange-900: #f9cfaa;
+}
+
+/* Point Tailwind's colour utilities at the variables above. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
+
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-300: var(--indigo-300);
+  --color-indigo-400: var(--indigo-400);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+
+  --color-red-50: var(--red-50);
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+  --color-red-900: var(--red-900);
+
+  --color-emerald-50: var(--emerald-50);
+  --color-emerald-100: var(--emerald-100);
+  --color-emerald-200: var(--emerald-200);
+  --color-emerald-500: var(--emerald-500);
+  --color-emerald-600: var(--emerald-600);
+  --color-emerald-700: var(--emerald-700);
+  --color-emerald-800: var(--emerald-800);
+  --color-emerald-900: var(--emerald-900);
+
+  --color-amber-50: var(--amber-50);
+  --color-amber-100: var(--amber-100);
+  --color-amber-200: var(--amber-200);
+  --color-amber-500: var(--amber-500);
+  --color-amber-600: var(--amber-600);
+  --color-amber-700: var(--amber-700);
+  --color-amber-800: var(--amber-800);
+  --color-amber-900: var(--amber-900);
+
+  --color-orange-50: var(--orange-50);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+  --color-orange-800: var(--orange-800);
+  --color-orange-900: var(--orange-900);
+
+  /* Flatter, squarer look (closer to a university site than a SaaS template) */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 5px;
+  --radius-2xl: 6px;
+
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 2px 6px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 4px 12px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 6px 18px rgb(0 0 0 / 0.14);
+
+  --font-sans:
+    "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei",
+    "Noto Sans SC", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* White cards and panels follow the theme surface. Written as plain CSS
+   (not a colour variable) so that "text-white" on buttons stays white. */
+.bg-white {
+  background-color: var(--surface);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--slate-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Form fields: readable in both themes */
+input,
+textarea,
+select {
+  color: var(--slate-900);
+  background-color: var(--surface);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--slate-400);
+  opacity: 1;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--indigo-500);
+  outline-offset: 1px;
+}
+
+/* Slim scrollbars that match the theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--slate-300) transparent;
+}
+
+::selection {
+  background: var(--indigo-500);
+  color: #ffffff;
 }

@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
+  // pdf-parse / pdfjs-dist must run as plain Node modules (they load a worker file
+  // from disk), so they must NOT be bundled by Turbopack.
+  serverExternalPackages: ["pdf-parse", "pdfjs-dist"],
   partialPrefetching: true,
   turbopack: {
     rules: {
